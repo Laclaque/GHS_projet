@@ -1,0 +1,18 @@
+
+- scriptG python qui appelle tous les scriptS quand il a connaissance de la taille du graphe
+- scriptS qui représente un site, avec une socket d'envoi et une socket d'écoute : argument le fichier dans lequel est le graphe + son id
+- fichiers pour modulariser le code (blocs)
+- lire un fichier de la forme
+
+NB DE SOMMETS
+TAILLE D'UN LIEN
+SOMMET1 SOMMET2 #arrete entre 1 et 2
+SOMMET1 SOMMET4 #arrete entre 1 et 4
+SOMMET2 SOMMET6
+
+     ->une fonction qui récup le nb de sommets
+     ->une fct qui récup tous les sommets liés à un sommet donné (donc renvoie 2 et 4 pour 1 entré ici)
+
+- voire comment gérer les receptions de msg (connexion sur la socket en listen) si plsr arrivent en même temps -- faire des recherches sur le net pour voire comment on met en attente ?
+
+- le reste c'est juste l'implémentation de l'algo
