@@ -1,7 +1,7 @@
 - scriptG
 	-> python qui crée les files de messages
 	-> appelle fork x la taille du graphe
-- scriptS qui représente un site avec une file de msgs par site
+- scriptS qui représente un site avec une file de msgs par site << plus besoin car fork
 https://docs.python.org/fr/3/library/multiprocessing.html
 
 - fichiers pour modulariser le code (blocs)
