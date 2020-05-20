@@ -1,6 +1,8 @@
 
-- scriptG python qui appelle tous les scriptS quand il a connaissance de la taille du graphe
+- scriptG python qui appelle fork quand il a connaissance de la taille du graphe
 - scriptS qui représente un site avec une file de msgs par site
+https://docs.python.org/fr/3/library/multiprocessing.html
+
 - fichiers pour modulariser le code (blocs)
 - lire un fichier de la forme
 
