@@ -9,9 +9,12 @@ https://docs.python.org/fr/3/library/multiprocessing.html
 3
 A B 3 #arrete entre 1 et 2
 A C 4 #arrete entre 1 et 4
- 
-     ->une fonction qui récup le nb de sommets
-     ->une fct qui récup tous les sommets liés à un sommet donné (donc renvoie 2 et 4 pour 1 entré ici)
+ >>>si on veut vraiment cette forme il faut modifier la fonction de lecture car pour l'instant elle a besoin des arretes deux fois ex :
+ 3
+A B 3
+A C 4
+B A 3
+C A 4
 
 - voire comment gérer les receptions de msg (connexion sur la socket en listen) si plsr arrivent en même temps -- faire des recherches sur le net pour voire comment on met en attente ?
 
