@@ -31,6 +31,14 @@ def read_graph_from_file(fname):
             #add the edge to the graph
             graph["edges"][splitLine[0]][splitLine[1]] = splitLine[2]
     return graph
+#la tete d'un graphe :
+#graph =
+#{  "size" : 3,
+#    "edges" :    {"A" :{"B" : 3,"C" : 4},
+#                          "B" : {"A" : 3},
+#                          "C" : {"A" : 4}
+#                         }
+#}
 
 
 #to comment
