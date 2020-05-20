@@ -1,20 +1,14 @@
-
-- scriptG python qui appelle fork quand il a connaissance de la taille du graphe
+- scriptG
+	-> python qui crée les files de messages
+	-> appelle fork x la taille du graphe
 - scriptS qui représente un site avec une file de msgs par site
 https://docs.python.org/fr/3/library/multiprocessing.html
 
 - fichiers pour modulariser le code (blocs)
-- lire un fichier de la forme
-
+OK- lire un fichier de la forme
 3
 A B 3 #arrete entre 1 et 2
 A C 4 #arrete entre 1 et 4
- >>>si on veut vraiment cette forme il faut modifier la fonction de lecture car pour l'instant elle a besoin des arretes deux fois ex :
- 3
-A B 3
-A C 4
-B A 3
-C A 4
 
 - voire comment gérer les receptions de msg (connexion sur la socket en listen) si plsr arrivent en même temps -- faire des recherches sur le net pour voire comment on met en attente ?
 

@@ -25,11 +25,19 @@ def read_graph_from_file(fname):
         #then, every line contains an edge
         for line in f_:
             splitLine = line.split()
+	    ##add the arc node1 to node2
             if splitLine[0] not in graph["edges"]:
                 #here we discovered another vertice name so add a new adjacency list (dictionnary)
                 graph["edges"][splitLine[0]] = {}
             #add the edge to the graph
             graph["edges"][splitLine[0]][splitLine[1]] = splitLine[2]
+	    ##add the arc node2 to node1
+            if splitLine[1] not in graph["edges"]:
+                #here we discovered another vertice name so add a new adjacency list (dictionnary)
+                graph["edges"][splitLine[1]] = {}
+            #add the edge to the graph
+            graph["edges"][splitLine[1]][splitLine[0]] = splitLine[2]
+
     return graph
 #la tete d'un graphe :
 #graph =
