@@ -13,3 +13,11 @@ A C 4 #arrete entre 1 et 4
 - voire comment gérer les receptions de msg (connexion sur la socket en listen) si plsr arrivent en même temps -- faire des recherches sur le net pour voire comment on met en attente ?
 
 - le reste c'est juste l'implémentation de l'algo
+ 
+A FAIRE :
+
+fct send_to pour envoyer dans la queue
+
+fct rcv_from pour lire dans la queue
+
+
