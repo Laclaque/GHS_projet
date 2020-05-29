@@ -1,14 +1,20 @@
 #!/bin/python3
 import math
 
+##//!\\ CHANGER TOUS LES SEND_TO AVEC LES BOnS ARGUMENTQS
+
+# The fct that looks for the minimal value in a dict and returns its key
+# Arguments :
+# Returns :
 def find_min_val_return_key_in_dict(edgesList):
-	#verifier si c'est possible de retourner un tuple, sinon garder seulement la
 	minimalEdgeKey = min(edgesList, key=edgesList.get)
 	return minimalEdgeKey 
 
-def bloc_initialization(edgesList,q_,i):
-	# //!\\ vérifier la portée des variables en python
-	#de toute façon ce bloc n'est appelé qu'une seule fois donc on pourra le mettre dans le code si besoin
+
+# The fonction that represents the bloc 1
+# Arguments :
+# Returns :
+def bloc_initialization(edgesList,q_,i,f_name, f_lock):
 	set_ = {
 		"i" : i,
 		 "canal" : {},
@@ -21,7 +27,9 @@ def bloc_initialization(edgesList,q_,i):
 		"testcan" : None,
 		"mpoids" : None,
 		"edges" : edgesList, #edgesList must contain only neigbors
-		"queues" : q_
+		"queues" : q_,
+		"f_" : f_name,
+		"f_lock" : f_lock
 	}
 	for neighbor in edgesList:
 		set_["canal"][neighbor] = "basic"
@@ -29,8 +37,11 @@ def bloc_initialization(edgesList,q_,i):
 	send_to(set_["queues"][minimalEdge],set_["i"],"connect",0, None, None)
 	return set_
 
+
+# The fonction that represents the bloc 2
+# Arguments :
+# Returns :
 def bloc_connect(L,j,set_):
-	# //!\\vérifier la portée des variables en python
 	if L < set_["niv"]:
 		set_["canal"][j] = "branch"
 		send_to(set["queues"][j],set_["i"],"initiate",set_["niv"],set_["nom"],set_["etat"])
@@ -41,6 +52,10 @@ def bloc_connect(L,j,set_):
 		
 	return set_
 
+
+# The fonction that represents the bloc 3
+# Arguments :
+# Returns :
 def bloc_initiate(L,F,S,j,set_):
 	set_["niv"] = L
 	set_["nom"] = F
@@ -56,6 +71,10 @@ def bloc_initiate(L,F,S,j,set_):
 		set = TEST(set_)
 	return set_
 
+
+# The fonction that represents the bloc 4
+# Arguments :
+# Returns :
 def TEST(set_):
 	exists = {}
 	for j, val in set_["canal"].item():
@@ -70,6 +89,10 @@ def TEST(set_):
 		set_ = REPORT(set_)
 	return set_
 
+
+# The fonction that represents the bloc 5
+# Arguments :
+# Returns :
 def bloc_test(L,F,j,set_): 
 	if L > set_["niv"]:
 		send_to(set_["queues"][set_["i"]],j,"test",L,F,None)
@@ -85,6 +108,10 @@ def bloc_test(L,F,j,set_):
 			send_to(set_["queues"][j],set_["i"],"accept",None,None,None)
 	return set_
 
+
+# The fonction that represents the bloc 6
+# Arguments :
+# Returns :
 def bloc_accept(j,set_):
 	set_["tescan"] = None
 	if set_["edges"][j] < set_["mpoids"]:
@@ -93,12 +120,20 @@ def bloc_accept(j,set_):
 	set_ = REPORT(set_)
 	return set_
 
+
+# The fonction that represents the bloc 7
+# Arguments :
+# Returns :
 def bloc_reject(j,set_):
 	if set_["canal"][j] == "basic":
 		set_["canal"][j] = "reject"
 	set_ = TEST(set_)
 	return set_
 
+
+# The fonction that represents the bloc 8
+# Arguments :
+# Returns :
 def REPORT(set_):
 	test = 0
 	for j, val in set_["canal"].item():
@@ -110,6 +145,10 @@ def REPORT(set_):
 		send_to(set_["queues"][set_["pere"]],set["i"], set_["mpoids"],None,None)
 	return set_
 
+
+# The fonction that represents the bloc 9
+# Arguments :
+# Returns :
 def bloc_report(poids,j,set_):
 	if j != set_["pere"]:
 		if set_["poids"] < set_["mpoids"]:
@@ -127,3 +166,21 @@ def bloc_report(poids,j,set_):
 				if set_["poids"] == set_["mpoids"] && set_["mpoids"] == math.inf:
 					return "TERMINE"#//!\\TERMINE
 	return set_
+
+
+# The fonction that represents the bloc 10
+# Arguments :
+# Returns :
+def CHANGEROOT(set_):
+	if set_["canal"][set_["mcan"]] == "branch":
+		send_to(set_["queues"][set_["mcan"]],set_["i"],"changeroot",None,None,None)
+	else:
+		send_to(set_["queues"][set_["mcan"]],set_["i"],"connect",set_["niv"],None,None)
+		set["canal"][set_["mcan"]] = branch
+	return set_
+
+# The fonction that represents the bloc 11
+# Arguments :
+# Returns :
+def bloc_changeroot(set_):
+	return CHANGEROOT(set_)
