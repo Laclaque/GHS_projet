@@ -3,15 +3,14 @@
 #from multiprocessing import Lock
 # lock = Lock() ; lock.acquire() ; lock.release()
 
-# The procedure to write (append) in a file shared between processes
+# The procedure that writes (append) in a file
 # Arguments :
-#	- f_name : the name of the file to read in
-#	- f_lock : the lock associated to the file
-#	- txt : the texte to append to the file
-def write_in_shared_file(f_name, f_lock, txt):
-	f_lock.acquire()
+#	- f_name : the name of the file to write in
+#	- txt : the text to append to the file
+# Returns : None
+def write_in_file(f_name, txt):
 	f_ = open(f_name, "a")
 	f_.write(txt)
 	f_.flush()
-	f_.close()
-	f_.release()
+	f_close()
+

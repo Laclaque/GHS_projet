@@ -14,7 +14,7 @@ def find_min_val_return_key_in_dict(edgesList):
 # The fonction that represents the bloc 1
 # Arguments :
 # Returns :
-def bloc_initialization(edgesList,q_,i,f_name, f_lock):
+def bloc_initialization(edgesList,q_,i,f_name):
 	set_ = {
 		"i" : i,
 		 "canal" : {},
@@ -28,8 +28,7 @@ def bloc_initialization(edgesList,q_,i,f_name, f_lock):
 		"mpoids" : None,
 		"edges" : edgesList, #edgesList must contain only neigbors
 		"queues" : q_,
-		"f_" : f_name,
-		"f_lock" : f_lock
+		"f_" : f_name
 	}
 	for neighbor in edgesList:
 		set_["canal"][neighbor] = "basic"

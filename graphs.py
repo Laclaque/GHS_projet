@@ -1,19 +1,9 @@
 #!/bin/python3
 
-#files must be be formated as follows :
-###
-#nbOfVertices
-#node1 node2 weightOnTheEdge
-#node1 node3 weightOnTheEdge
-#node2 node1 weightOnTheEdge
-#node3 node1 weightOnTheEdge
-#...
-###
-#the file must contain every edge two times as it is considered as lists of neighbors
-# in our example node1 has 2neigbors whereas node2 and node3 have only 1 neighbor each
-
-#to comment
-#not checked yet
+# The fct that creates a graph obj from a file
+# Arguments :
+#	- fname : the file name to read from
+# Returns :{"size":3, edges":{node:{node:value,...},...}}
 def read_graph_from_file(fname):
     graph = {
             "size" : 0,
@@ -39,19 +29,4 @@ def read_graph_from_file(fname):
             graph["edges"][splitLine[1]][splitLine[0]] = splitLine[2]
 
     return graph
-#la tete d'un graphe :
-#graph =
-#{  "size" : 3,
-#    "edges" :    {"A" :{"B" : 3,"C" : 4},
-#                          "B" : {"A" : 3},
-#                          "C" : {"A" : 4}
-#                         }
-#}
-
-
-#to comment
-#not checked yet
-def get_adjacencyList_from_graph(graph, node):
-    return graph["edges"][node]
-
 
