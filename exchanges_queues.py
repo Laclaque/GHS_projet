@@ -1,6 +1,6 @@
 #!/bin/python3
 
-from multiprocessing import queue
+from multiprocessing import Queue
 import json
 import files_basics as fbasics
 import register
@@ -16,7 +16,7 @@ import register
 #	- val3 : the third value to send
 #	- f_ : the name of the file to register msg in
 # Returns : None
-def send_to(q_,sender,receiver,name,val1,val2,val3,f_)
+def send_to(q_,sender,receiver,name,val1,val2,val3,f_):
 	obj = {
 		"type" : name,
 		"val1" : val1,
@@ -24,7 +24,7 @@ def send_to(q_,sender,receiver,name,val1,val2,val3,f_)
 		"val3" : val3,
 		"sender" : sender
 	}
-	q_.send(json.dumps(obj))
+	q_.put(json.dumps(obj))
 	txt = register.send_msg(sender,receiver,name,val1,val2,val3)
 	fbasics.write_in_file(f_,txt)
 	
@@ -32,12 +32,29 @@ def send_to(q_,sender,receiver,name,val1,val2,val3,f_)
 # The fct to receive a msg from another node (read in queue)
 # Arguments :
 #	- q_ : the queue to read in 
-#	- receiver : the id of the receiver (the one who read in queue)
+#	- receiver : the id of the receiver (the one who reads in queue)
 #	- f_ : the name of the file to register msg in
 # Returns :
 #	- {"type":_, "val1":_, "val2":_, "val3":_}
 def recv_from(q_,receiver,f_):
-	obj = q_.get(json.loads(obj))
-	txt = (sender,receiver,obj["sender"],obj["type"],obj["val1"],obj["val2"],obj["val3"])
+	obj = json.loads(q_.get())
+	txt = register.recv_msg(obj["sender"],receiver,obj["type"],obj["val1"],obj["val2"],obj["val3"])
 	fbasics.write_in_file(f_,txt)
 	return obj
+
+
+# The procedure to alert the father the algorithm finished
+# Arguments :
+#	- q_ : the queue of the father
+#	- f_ : the name of the file to register in
+# Returns : None
+def send_finish(q_, f_):
+	q_.put(json.dumps("TERMINE"))
+	fbasics.write_in_file(f_, "        TERMINE !!!")
+
+# The fct to receive the alert when algorithm finish
+# Arguments :
+#	- q : the queue to read in
+# Returns : a string
+def recv_finish(q_):
+	return json.loads(q_.get())
