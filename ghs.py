@@ -3,6 +3,7 @@ import math
 import exchanges_queues as eq
 import files_basics as fb
 import register
+import time
 
 # The fct that looks for the minimal value in a dict and returns its key
 # Arguments :
@@ -31,7 +32,7 @@ def bloc_initialization(edgesList, q_, i, f_name):
 		"pere" : None,
 		"mcan" : None,
 		"testcan" : None,
-		"mpoids" : None,
+		"mpoids" : 0.1,
 		"edges" : edgesList, #edgesList must contain only neigbors
 		"queues" : q_,
 		"f_" : f_name
@@ -53,12 +54,12 @@ def bloc_initialization(edgesList, q_, i, f_name):
 # Returns : a set (see bloc 1)
 def bloc_connect(L, j, set_):
 	if L < set_["niv"]:
-		fb.write_in_file(set_["f_"], register.change_var("canal[j]", set_["canal"][j], "branch"))
+		fb.write_in_file(set_["f_"], register.change_var("canal["+j+"]", set_["canal"][j], "branch"))
 		set_["canal"][j] = "branch"
 		eq.send_to(set_["queues"][j], set_["i"], j, "initiate", set_["niv"], set_["nom"], set_["etat"], set_["f_"])
 	else:
-		fb.write_in_file(set_["f_"], register.change_var("canal[j]", set_["canal"][j], "basic"))
 		if set_["canal"][j] == "basic":
+			time.sleep(1)
 			eq.send_to(set_["queues"][set_["i"]], j, set_["i"], "connect", L, None, None, set_["f_"]) #traiter le message plus tard
 		else:
 			eq.send_to(set_["queues"][j], set_["i"], j, "initiate", set_["niv"]+1, set_["edges"][j], "find", set_["f_"])
@@ -84,7 +85,7 @@ def bloc_initiate(L, F, S, j, set_):
 	set_["mcan"] = None
 	fb.write_in_file(set_["f_"], register.change_var("mpoids", set_["mpoids"], "inf"))
 	set_["mpoids"] = math.inf
-	for vois, val in set_["edges"].item():
+	for vois, val in set_["edges"].items():
 		if vois != j and set_["canal"][vois] == "branch":
 			eq.send_to(set_["queues"][vois], set_["i"], vois, "initiate", L, F, S, set_["f_"])
 	if set_["etat"] == "find":
@@ -100,10 +101,10 @@ def bloc_initiate(L, F, S, j, set_):
 # Returns : a set (see bloc 1)
 def TEST(set_):
 	exists = {}
-	for j, val in set_["canal"].item():
+	for j, val in set_["canal"].items():
 		if val == "basic":
 			exists[j] = val
-	if not bool(exists) == True: # bool(exists)=False when empty ##POURRAIT ETRE PROBLEMATIQUE
+	if not bool(exists) == False: # bool(exists)=False when empty ##POURRAIT ETRE PROBLEMATIQUE
 		j = find_min_val_return_key_in_dict(exists)
 		fb.write_in_file(set_["f_"], register.change_var("testcan", set_["testcan"], j))
 		set_["testcan"] = j
@@ -123,11 +124,12 @@ def TEST(set_):
 # Returns : a set (see bloc 1)
 def bloc_test(L, F, j, set_): 
 	if L > set_["niv"]:
+		time.sleep(1)
 		eq.send_to(set_["queues"][set_["i"]], j, set_["i"], "test", L, F, None, set_["f_"]) # Traiter le msg plus tard
 	else:
 		if F == set_["nom"]:
 			if set_["canal"][j] == "basic":
-				fb.write_in_file(set_["f_"], register.change_var("canal[j]", set_["canal"][j], "reject"))
+				fb.write_in_file(set_["f_"], register.change_var("canal["+j+"]", set_["canal"][j], "reject"))
 				set_["canal"][j] = "reject"
 			if j != set_["testcan"]:
 				eq.send_to(set_["queues"][j], set_["i"], j, "reject", None, None, None, set_["f_"])
@@ -162,7 +164,7 @@ def bloc_accept(j, set_):
 # Returns : a set (see bloc 1)
 def bloc_reject(j, set_):
 	if set_["canal"][j] == "basic":
-		fb.write_in_file(set_["f_"], register.change_var("canal[j]", set_["canal"][j], "reject"))
+		fb.write_in_file(set_["f_"], register.change_var("canal["+j+"]", set_["canal"][j], "reject"))
 		set_["canal"][j] = "reject"
 	set_ = TEST(set_)
 	return set_
@@ -174,10 +176,10 @@ def bloc_reject(j, set_):
 # Returns : a set (see bloc 1)
 def REPORT(set_):
 	test = 0
-	for j, val in set_["canal"].item():
+	for j, val in set_["canal"].items():
 		if val == "branch" and j != set_["pere"]:
 			test = test + 1
-	if set_["recu"] == test and set_["tescan"] == None:
+	if set_["recu"] == test and set_["testcan"] == None:
 		fb.write_in_file(set_["f_"], register.change_var("etat", set_["etat"], "found"))
 		set_["etat"] = "found"
 		eq.send_to(set_["queues"][set_["pere"]], set_["i"], set_["pere"], "report", set_["mpoids"], None, None, set_["f_"])
@@ -202,12 +204,15 @@ def bloc_report(poids, j, set_):
 		set_ = REPORT(set_)
 	else:
 		if set_["etat"] == "find":
+			time.sleep(1)
 			eq.send_to(set_["queues"][set_["i"]], j, set_["i"], "report", poids, None, None, set_["f_"]) # Traiter le msg plus tard
 		else:
 			if poids > set_["mpoids"]:
 				set_ = CHANGEROOT(set_)
 			else:
 				if poids == set_["mpoids"] and set_["mpoids"] == math.inf:
+					eq.send_finish(set_["queues"]["father"], set_["f_"])
+					fb.write_in_file(set_["f_"], " --> "+format(set_)+"\n")
 					return "TERMINE" # //!\\ TERMINE
 	return set_
 

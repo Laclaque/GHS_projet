@@ -13,5 +13,4 @@ def write_in_file(f_name, txt):
 	f_.write(txt)
 	f_.flush()
 	f_.close()
-	print(txt)
 
