@@ -41,7 +41,10 @@ for node in g_["edges"]:
 
 ## In the child
 if n == 0:
+	q = 0
 	while set_ != "TERMINE":
+		q += 1
+		print("q : "+format(q))
 		msg = eq.recv_from(set_["queues"][set_["i"]], set_["i"], set_["f_"])
 		# Start the roll of the blocks
 		if msg["type"] == "connect":

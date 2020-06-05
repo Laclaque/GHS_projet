@@ -33,7 +33,7 @@ def recv_msg(sender, receiver, name, val1, val2, val3):
 #	- name : the name of the changed var
 #	- old : the old value
 #	- new :  the new value
-def changed_var(name, old, new):
+def change_var(name, old, new):
 	txt = "        "+format(name)+" : "+format(old)+" --> "+format(new)+"\n"
 	return txt 
 
