@@ -1,0 +1,53 @@
+
+----------------------
+Set final :
+canal : {'D': 'basic', 'B': 'branch'}
+recu : 0
+f_ : RAPPORT_graphecours__060620_233955_nodeC.txt
+edges : {'D': 5, 'B': 2}
+niv : 0
+pere : None
+mpoids : 0.1
+testcan : None
+mcan : None
+queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1232153d68>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1233960cc0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1232153be0>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1232ad5e80>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1232153ef0>}
+etat : found
+i : C
+nom : None
+        C envoie à B : (connect, 0, None, None) ...
+C recoit de B : (test, 1, 1, None) ...
+        B envoie à C : (test, 1, 1, None) ...
+C recoit de B : (initiate, 1, 1, find) ...
+        niv : 0 --> 1
+        nom : None --> 1
+        etat : found --> find
+        pere : None --> B
+        mcan : None --> None
+        mpoids : 0.1 --> inf
+        recu : 0 --> 0
+        testcan : None --> D
+        C envoie à D : (test, 1, 1, None) ...
+C recoit de B : (test, 1, 1, None) ...
+        C envoie à B : (reject, None, None, None) ...
+C recoit de D : (reject, None, None, None) ...
+        canal[D] : basic --> reject
+        testcan : D --> None
+        etat : find --> found
+        C envoie à B : (report, inf, None, None) ...
+C recoit de father : (termine, None, None, None) ...
+
+----------------------
+Set final :
+canal : {'D': 'reject', 'B': 'branch'}
+recu : 0
+f_ : RAPPORT_graphecours__060620_233955_nodeC.txt
+edges : {'D': 5, 'B': 2}
+niv : 1
+pere : B
+mpoids : inf
+testcan : None
+mcan : None
+queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1232153d68>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1233960cc0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1232153be0>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1232ad5e80>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1232153ef0>}
+etat : found
+i : C
+nom : 1

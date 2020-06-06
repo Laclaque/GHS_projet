@@ -7,6 +7,7 @@ import exchanges_queues as eq
 import multiprocessing as mp
 import ghs
 import time
+import register
 
 ### Arguments checking
 if len(sys.argv) != 2:
@@ -57,20 +58,20 @@ if n == 0:
 			set_ = ghs.bloc_report(msg["val1"], msg["sender"], set_)
 		elif msg["type"] == "changeroot":
 			set_ = ghs.bloc_changeroot(set_)
-	time.sleep(3)
+		elif msg["type"] == "termine":
+			end_set_ = set_
+			set_ = "TERMINE"
+	#msg = eq.recv_from(set_["queues"][set_["i"]], set_["i"], set_["f_"])
+	register.set_state(end_set_, end_set_["f_"])
 	print("DONE !")
+	time.sleep(3)
 ##
 
 ## In the father
 else:
-	for i in range(g_["size"]):
-		read = eq.recv_finish(queues["father"])
+	msg = eq.recv_from(queues["father"], "father", None)
+	for node, q_ in queues.items():
+		eq.send_to(q_, "father", None, "termine", None, None, None, None)
 	print("J'ai fini")
-	time.sleep(5)
-#	read = ""
-#	while read != "TERMINE":
-#		read = eq.recv_finish(queues["father"])
-#	for child,pid in childs.items():
-#		os.kill(pid, 9) 
 ##
 exit(0)

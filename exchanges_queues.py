@@ -1,7 +1,6 @@
 #!/bin/python3
 from multiprocessing import SimpleQueue
 import queue
-import files_basics as fbasics
 import register
 import json
 import time
@@ -26,8 +25,7 @@ def send_to(q_, sender, receiver, name, val1, val2, val3, f_):
 		"sender" : sender
 	}
 	q_.put(json.dumps(obj))
-	txt = register.send_msg(sender, receiver, name, val1, val2, val3)
-	fbasics.write_in_file(f_,txt)
+	register.send_msg(sender, receiver, name, val1, val2, val3, f_)
 	
 
 # The fct to receive a msg from another node (read in queue)
@@ -39,23 +37,6 @@ def send_to(q_, sender, receiver, name, val1, val2, val3, f_):
 #	- {"type":_, "val1":_, "val2":_, "val3":_}
 def recv_from(q_, receiver, f_):
 	obj = json.loads(q_.get())
-	txt = register.recv_msg(obj["sender"], receiver, obj["type"], obj["val1"], obj["val2"], obj["val3"])
-	fbasics.write_in_file(f_,txt)
+	txt = register.recv_msg(obj["sender"], receiver, obj["type"], obj["val1"], obj["val2"], obj["val3"], f_)
 	return obj
 
-
-# The procedure to alert the father the algorithm finished
-# Arguments :
-#	- q_ : the queue of the father
-#	- f_ : the name of the file to register in
-# Returns : None
-def send_finish(q_, f_):
-	q_.put(json.dumps("TERMINE"))
-	fbasics.write_in_file(f_, "        TERMINE !!!")
-
-# The fct to receive the alert when algorithm finish
-# Arguments :
-#	- q : the queue to read in
-# Returns : a string
-def recv_finish(q_):
-	return json.loads(q_.get())

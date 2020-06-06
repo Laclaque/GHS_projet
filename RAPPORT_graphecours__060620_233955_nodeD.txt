@@ -1,0 +1,63 @@
+
+----------------------
+Set final :
+canal : {'A': 'basic', 'B': 'branch', 'C': 'basic'}
+recu : 0
+f_ : RAPPORT_graphecours__060620_233955_nodeD.txt
+edges : {'A': 3, 'B': 1, 'C': 5}
+niv : 0
+pere : None
+mpoids : 0.1
+testcan : None
+mcan : None
+queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1232153d68>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1233960cc0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1232153be0>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1232ad5e80>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1232153ef0>}
+etat : found
+i : D
+nom : None
+        D envoie à B : (connect, 0, None, None) ...
+D recoit de A : (connect, 0, None, None) ...
+        A envoie à D : (connect, 0, None, None) ...
+D recoit de B : (connect, 0, None, None) ...
+        D envoie à B : (initiate, 1, 1, find) ...
+D recoit de A : (connect, 0, None, None) ...
+        A envoie à D : (connect, 0, None, None) ...
+D recoit de B : (initiate, 1, 1, find) ...
+        niv : 0 --> 1
+        nom : None --> 1
+        etat : found --> find
+        pere : None --> B
+        mcan : None --> None
+        mpoids : 0.1 --> inf
+        recu : 0 --> 0
+        testcan : None --> A
+        D envoie à A : (test, 1, 1, None) ...
+D recoit de A : (connect, 0, None, None) ...
+        canal[A] : basic --> branch
+        D envoie à A : (initiate, 1, 1, find) ...
+D recoit de C : (test, 1, 1, None) ...
+        canal[C] : basic --> reject
+        D envoie à C : (reject, None, None, None) ...
+D recoit de A : (reject, None, None, None) ...
+        testcan : A --> None
+D recoit de A : (report, inf, None, None) ...
+        recu : 0 --> 1
+        etat : find --> found
+        D envoie à B : (report, inf, None, None) ...
+D recoit de B : (report, inf, None, None) ...
+D recoit de father : (termine, None, None, None) ...
+
+----------------------
+Set final :
+canal : {'A': 'branch', 'B': 'branch', 'C': 'reject'}
+recu : 1
+f_ : RAPPORT_graphecours__060620_233955_nodeD.txt
+edges : {'A': 3, 'B': 1, 'C': 5}
+niv : 1
+pere : B
+mpoids : inf
+testcan : None
+mcan : None
+queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1232153d68>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1233960cc0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1232153be0>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1232ad5e80>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1232153ef0>}
+etat : found
+i : D
+nom : 1

@@ -9,6 +9,8 @@
 #	- txt : the text to append to the file
 # Returns : None
 def write_in_file(f_name, txt):
+	if f_name == None:
+		return 1
 	f_ = open(f_name, "a")
 	f_.write(txt)
 	f_.flush()

@@ -1,0 +1,68 @@
+
+----------------------
+Set final :
+niv : 0
+canal : {'D': 'basic', 'B': 'branch'}
+queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1878295cc0>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88f60>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1877405ef0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88c50>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88dd8>}
+i : A
+edges : {'D': 4, 'B': 2}
+etat : found
+nom : None
+f_ : RAPPORT_graphecours2__060620_234002_nodeA.txt
+mpoids : 0.1
+testcan : None
+mcan : None
+pere : None
+recu : 0
+        A envoie à B : (connect, 0, None, None) ...
+A recoit de B : (connect, 0, None, None) ...
+        A envoie à B : (initiate, 1, 2, find) ...
+A recoit de B : (initiate, 1, 2, find) ...
+        niv : 0 --> 1
+        nom : None --> 2
+        etat : found --> find
+        pere : None --> B
+        mcan : None --> None
+        mpoids : 0.1 --> inf
+        recu : 0 --> 0
+        testcan : None --> D
+        A envoie à D : (test, 1, 2, None) ...
+A recoit de D : (accept, None, None, None) ...
+        testcan : D --> None
+        mpoids : inf --> 4
+        mcan : None --> D
+        etat : find --> found
+        A envoie à B : (report, 4, None, None) ...
+A recoit de B : (report, 3, None, None) ...
+A recoit de B : (initiate, 2, 3, find) ...
+        niv : 1 --> 2
+        nom : 2 --> 3
+        etat : found --> find
+        pere : B --> B
+        mcan : D --> None
+        mpoids : 4 --> inf
+        recu : 0 --> 0
+        testcan : None --> D
+        A envoie à D : (test, 2, 3, None) ...
+A recoit de D : (test, 2, 3, None) ...
+        canal[D] : basic --> reject
+        testcan : D --> None
+        etat : find --> found
+        A envoie à B : (report, inf, None, None) ...
+A recoit de father : (termine, None, None, None) ...
+
+----------------------
+Set final :
+niv : 2
+canal : {'D': 'reject', 'B': 'branch'}
+queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1878295cc0>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88f60>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1877405ef0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88c50>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88dd8>}
+i : A
+edges : {'D': 4, 'B': 2}
+etat : found
+nom : 3
+f_ : RAPPORT_graphecours2__060620_234002_nodeA.txt
+mpoids : inf
+testcan : None
+mcan : None
+pere : B
+recu : 0
