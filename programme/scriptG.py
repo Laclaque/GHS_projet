@@ -25,18 +25,17 @@ queues["father"] = mp.SimpleQueue() # +father
 
 ## Creates a unique file name for an instance
 now = datetime.now() # Current date and time
-d_t = now.strftime("%d%m%y_%H%M%S")
+d_t = now.strftime("%d%m%y_%H%M")
 fileName = "RAPPORT_"+graphFile+"__"+d_t
 
 ## Creates childs and init them
-childs = {}
 for node in g_["edges"]:
 	# Here we adapt the set before the fork to init each node
 	set_ = ghs.bloc_initialization(g_["edges"][node], queues, node, fileName+"_node"+node+".txt")
+	register.set_state(set_, set_["f_"])
 	n = os.fork()
 	if n == 0: # We don't want the childs to fork again
 		break
-	childs[node] = n
 ##	
 
 ## In the child
@@ -64,14 +63,15 @@ if n == 0:
 	#msg = eq.recv_from(set_["queues"][set_["i"]], set_["i"], set_["f_"])
 	register.set_state(end_set_, end_set_["f_"])
 	print("DONE !")
-	time.sleep(3)
 ##
 
 ## In the father
 else:
 	msg = eq.recv_from(queues["father"], "father", None)
+	time.sleep(2)
 	for node, q_ in queues.items():
 		eq.send_to(q_, "father", None, "termine", None, None, None, None)
 	print("J'ai fini")
 ##
+time.sleep(3)
 exit(0)

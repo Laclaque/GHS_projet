@@ -1,0 +1,59 @@
+        C envoie à B : (connect, 0, None, None) ...
+--------
+Set state :
+f_ : RAPPORT_txtGcours__150620_1522_nodeC.txt
+edges : {'D': 5, 'B': 2}
+recu : 0
+canal : {'D': 'basic', 'B': 'branch'}
+testcan : None
+mcan : None
+i : C
+etat : found
+mpoids : 0.1
+pere : None
+niv : 0
+nom : None
+--------
+
+C recoit de B : (test, 1, 1, None) ...
+        B envoie à C : (test, 1, 1, None) ...
+C recoit de B : (initiate, 1, 1, find) ...
+        niv : 0 --> 1
+        nom : None --> 1
+        etat : found --> find
+        pere : None --> B
+        mcan : None --> None
+        mpoids : 0.1 --> inf
+        recu : 0 --> 0
+        -- Procedure TEST --
+        testcan : None --> D
+        C envoie à D : (test, 1, 1, None) ...
+        -- Fin procedure TEST --
+C recoit de B : (test, 1, 1, None) ...
+        C envoie à B : (reject, None, None, None) ...
+C recoit de D : (reject, None, None, None) ...
+        canal[D] : basic --> reject
+        -- Procedure TEST --
+        testcan : D --> None
+        - Procedure REPORT -
+        etat : find --> found
+        C envoie à B : (report, inf, None, None) ...
+        - Fin procedure REPORT -
+        -- Fin procedure TEST --
+C recoit de father : (termine, None, None, None) ...
+--------
+Set state :
+f_ : RAPPORT_txtGcours__150620_1522_nodeC.txt
+edges : {'D': 5, 'B': 2}
+recu : 0
+canal : {'D': 'reject', 'B': 'branch'}
+testcan : None
+mcan : None
+i : C
+etat : found
+mpoids : inf
+pere : B
+niv : 1
+nom : 1
+--------
+

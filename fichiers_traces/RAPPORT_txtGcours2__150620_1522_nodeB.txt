@@ -1,20 +1,20 @@
-
-----------------------
-Set final :
-niv : 0
-canal : {'D': 'basic', 'C': 'basic', 'A': 'branch'}
-queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1878295cc0>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88f60>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1877405ef0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88c50>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88dd8>}
-i : B
-edges : {'D': 3, 'C': 5, 'A': 2}
-etat : found
-nom : None
-f_ : RAPPORT_graphecours2__060620_234002_nodeB.txt
-mpoids : 0.1
-testcan : None
-mcan : None
-pere : None
-recu : 0
         B envoie à A : (connect, 0, None, None) ...
+--------
+Set state :
+i : B
+testcan : None
+nom : None
+pere : None
+etat : found
+f_ : RAPPORT_txtGcours2__150620_1522_nodeB.txt
+edges : {'A': 2, 'C': 5, 'D': 3}
+recu : 0
+mpoids : 0.1
+canal : {'A': 'branch', 'C': 'basic', 'D': 'basic'}
+mcan : None
+niv : 0
+--------
+
 B recoit de A : (connect, 0, None, None) ...
         B envoie à A : (initiate, 1, 2, find) ...
 B recoit de D : (test, 1, 1, None) ...
@@ -27,8 +27,10 @@ B recoit de A : (initiate, 1, 2, find) ...
         mcan : None --> None
         mpoids : 0.1 --> inf
         recu : 0 --> 0
+        -- Procedure TEST --
         testcan : None --> D
         B envoie à D : (test, 1, 2, None) ...
+        -- Fin procedure TEST --
 B recoit de C : (test, 1, 1, None) ...
         B envoie à C : (accept, None, None, None) ...
 B recoit de A : (report, 4, None, None) ...
@@ -39,11 +41,15 @@ B recoit de D : (accept, None, None, None) ...
         testcan : D --> None
         mpoids : inf --> 3
         mcan : None --> D
+        - Procedure REPORT -
         etat : find --> found
         B envoie à A : (report, 3, None, None) ...
+        - Fin procedure REPORT -
 B recoit de A : (report, 4, None, None) ...
+        --- Procedure CHANGEROOT ---
         B envoie à D : (connect, 1, None, None) ...
         canal[D] : basic --> branch
+        --- Fin procedure CHANGEROOT ---
 B recoit de D : (connect, 1, None, None) ...
         B envoie à D : (initiate, 2, 3, find) ...
 B recoit de D : (initiate, 2, 3, find) ...
@@ -55,30 +61,38 @@ B recoit de D : (initiate, 2, 3, find) ...
         mpoids : 3 --> inf
         B envoie à A : (initiate, 2, 3, find) ...
         recu : 0 --> 0
+        -- Procedure TEST --
         testcan : None --> C
         B envoie à C : (test, 2, 3, None) ...
+        -- Fin procedure TEST --
 B recoit de A : (report, inf, None, None) ...
         recu : 0 --> 1
+        - Procedure REPORT -
+        - Fin procedure REPORT -
 B recoit de C : (test, 2, 3, None) ...
         canal[C] : basic --> reject
+        -- Procedure TEST --
         testcan : C --> None
+        - Procedure REPORT -
         etat : find --> found
         B envoie à D : (report, inf, None, None) ...
+        - Fin procedure REPORT -
+        -- Fin procedure TEST --
 B recoit de D : (report, inf, None, None) ...
 B recoit de father : (termine, None, None, None) ...
-
-----------------------
-Set final :
-niv : 2
-canal : {'D': 'branch', 'C': 'reject', 'A': 'branch'}
-queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1878295cc0>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88f60>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1877405ef0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88c50>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88dd8>}
+--------
+Set state :
 i : B
-edges : {'D': 3, 'C': 5, 'A': 2}
-etat : found
-nom : 3
-f_ : RAPPORT_graphecours2__060620_234002_nodeB.txt
-mpoids : inf
 testcan : None
-mcan : None
+nom : 3
 pere : D
+etat : found
+f_ : RAPPORT_txtGcours2__150620_1522_nodeB.txt
+edges : {'A': 2, 'C': 5, 'D': 3}
 recu : 1
+mpoids : inf
+canal : {'A': 'branch', 'C': 'reject', 'D': 'branch'}
+mcan : None
+niv : 2
+--------
+

@@ -1,0 +1,71 @@
+        B envoie à D : (connect, 0, None, None) ...
+--------
+Set state :
+f_ : RAPPORT_txtGcours__150620_1522_nodeB.txt
+edges : {'C': 2, 'D': 1, 'A': 4}
+recu : 0
+canal : {'C': 'basic', 'D': 'branch', 'A': 'basic'}
+testcan : None
+mcan : None
+i : B
+etat : found
+mpoids : 0.1
+pere : None
+niv : 0
+nom : None
+--------
+
+B recoit de D : (connect, 0, None, None) ...
+        B envoie à D : (initiate, 1, 1, find) ...
+B recoit de C : (connect, 0, None, None) ...
+        C envoie à B : (connect, 0, None, None) ...
+B recoit de D : (initiate, 1, 1, find) ...
+        niv : 0 --> 1
+        nom : None --> 1
+        etat : found --> find
+        pere : None --> D
+        mcan : None --> None
+        mpoids : 0.1 --> inf
+        recu : 0 --> 0
+        -- Procedure TEST --
+        testcan : None --> C
+        B envoie à C : (test, 1, 1, None) ...
+        -- Fin procedure TEST --
+B recoit de C : (connect, 0, None, None) ...
+        canal[C] : basic --> branch
+        B envoie à C : (initiate, 1, 1, find) ...
+B recoit de A : (test, 1, 1, None) ...
+        canal[A] : basic --> reject
+        B envoie à A : (reject, None, None, None) ...
+B recoit de C : (reject, None, None, None) ...
+        -- Procedure TEST --
+        testcan : C --> None
+        - Procedure REPORT -
+        - Fin procedure REPORT -
+        -- Fin procedure TEST --
+B recoit de D : (report, inf, None, None) ...
+        D envoie à B : (report, inf, None, None) ...
+B recoit de C : (report, inf, None, None) ...
+        recu : 0 --> 1
+        - Procedure REPORT -
+        etat : find --> found
+        B envoie à D : (report, inf, None, None) ...
+        - Fin procedure REPORT -
+B recoit de D : (report, inf, None, None) ...
+B recoit de father : (termine, None, None, None) ...
+--------
+Set state :
+f_ : RAPPORT_txtGcours__150620_1522_nodeB.txt
+edges : {'C': 2, 'D': 1, 'A': 4}
+recu : 1
+canal : {'C': 'branch', 'D': 'branch', 'A': 'reject'}
+testcan : None
+mcan : None
+i : B
+etat : found
+mpoids : inf
+pere : D
+niv : 1
+nom : 1
+--------
+

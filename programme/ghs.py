@@ -41,7 +41,6 @@ def bloc_initialization(edgesList, q_, i, f_name):
 		set_["canal"][neighbor] = "basic"
 	minimalEdge = find_min_val_return_key_in_dict(edgesList)
 	set_["canal"][minimalEdge] = "branch"
-	register.set_state(set_, set_["f_"])
 	eq.send_to(set_["queues"][minimalEdge], set_["i"], minimalEdge, "connect", 0, None, None, set_["f_"])
 	return set_
 
@@ -100,6 +99,7 @@ def bloc_initiate(L, F, S, j, set_):
 #	- set_ : the set of the current node to update through the bloc
 # Returns : a set (see bloc 1)
 def TEST(set_):
+	fb.write_in_file(set_["f_"], "        -- Procedure TEST --\n")
 	exists = {}
 	for j, val in set_["canal"].items():
 		if val == "basic":
@@ -114,6 +114,7 @@ def TEST(set_):
 		register.change_var("testcan", set_["testcan"], "None", set_["f_"])
 		set_["testcan"] = None
 		set_ = REPORT(set_)
+	fb.write_in_file(set_["f_"], "        -- Fin procedure TEST --\n")
 	return set_
 
 
@@ -176,6 +177,7 @@ def bloc_reject(j, set_):
 #	- set_ : the set of the current node to update through the bloc
 # Returns : a set (see bloc 1)
 def REPORT(set_):
+	fb.write_in_file(set_["f_"], "        - Procedure REPORT -\n")
 	test = 0
 	for j, val in set_["canal"].items():
 		if val == "branch" and j != set_["pere"]:
@@ -184,6 +186,7 @@ def REPORT(set_):
 		register.change_var("etat", set_["etat"], "found", set_["f_"])
 		set_["etat"] = "found"
 		eq.send_to(set_["queues"][set_["pere"]], set_["i"], set_["pere"], "report", set_["mpoids"], None, None, set_["f_"])
+	fb.write_in_file(set_["f_"], "        - Fin procedure REPORT -\n")
 	return set_
 
 
@@ -213,10 +216,9 @@ def bloc_report(poids, j, set_):
 			else:
 				if poids == set_["mpoids"] and set_["mpoids"] == math.inf:
 #					register.set_state(set_, set_["f_"])
-					print("termine !")
+					print(" ### "+set_["i"]+" à terminé l'algo ### ")
 					eq.send_to(set_["queues"]['father'], set_["i"], "father", "termine", None, None, None, None)
 					return set_ # //!\\ TERMINE
-					#return "TERMINE" # //!\\ TERMINE
 	return set_
 
 
@@ -225,12 +227,14 @@ def bloc_report(poids, j, set_):
 #	- set_ : the set of the current node to update through the bloc
 # Returns : a set (see bloc 1)
 def CHANGEROOT(set_):
+	fb.write_in_file(set_["f_"], "        --- Procedure CHANGEROOT ---\n")
 	if set_["canal"][set_["mcan"]] == "branch":
 		eq.send_to(set_["queues"][set_["mcan"]], set_["i"], set_["mcan"], "changeroot", None, None, None, set_["f_"])
 	else:
 		eq.send_to(set_["queues"][set_["mcan"]], set_["i"], set_["mcan"], "connect", set_["niv"], None, None, set_["f_"])
 		register.change_var("canal["+set_["mcan"]+"]", set_["canal"][set_["mcan"]], "branch", set_["f_"])
 		set_["canal"][set_["mcan"]] = "branch"
+	fb.write_in_file(set_["f_"], "        --- Fin procedure CHANGEROOT ---\n")
 	return set_
 
 # The fonction that represents the bloc 11

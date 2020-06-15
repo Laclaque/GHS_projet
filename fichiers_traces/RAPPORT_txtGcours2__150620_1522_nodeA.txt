@@ -1,20 +1,20 @@
-
-----------------------
-Set final :
-niv : 0
-canal : {'D': 'basic', 'B': 'branch'}
-queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1878295cc0>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88f60>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1877405ef0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88c50>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88dd8>}
-i : A
-edges : {'D': 4, 'B': 2}
-etat : found
-nom : None
-f_ : RAPPORT_graphecours2__060620_234002_nodeA.txt
-mpoids : 0.1
-testcan : None
-mcan : None
-pere : None
-recu : 0
         A envoie à B : (connect, 0, None, None) ...
+--------
+Set state :
+i : A
+testcan : None
+nom : None
+pere : None
+etat : found
+f_ : RAPPORT_txtGcours2__150620_1522_nodeA.txt
+edges : {'B': 2, 'D': 4}
+recu : 0
+mpoids : 0.1
+canal : {'B': 'branch', 'D': 'basic'}
+mcan : None
+niv : 0
+--------
+
 A recoit de B : (connect, 0, None, None) ...
         A envoie à B : (initiate, 1, 2, find) ...
 A recoit de B : (initiate, 1, 2, find) ...
@@ -25,14 +25,18 @@ A recoit de B : (initiate, 1, 2, find) ...
         mcan : None --> None
         mpoids : 0.1 --> inf
         recu : 0 --> 0
+        -- Procedure TEST --
         testcan : None --> D
         A envoie à D : (test, 1, 2, None) ...
+        -- Fin procedure TEST --
 A recoit de D : (accept, None, None, None) ...
         testcan : D --> None
         mpoids : inf --> 4
         mcan : None --> D
+        - Procedure REPORT -
         etat : find --> found
         A envoie à B : (report, 4, None, None) ...
+        - Fin procedure REPORT -
 A recoit de B : (report, 3, None, None) ...
 A recoit de B : (initiate, 2, 3, find) ...
         niv : 1 --> 2
@@ -42,27 +46,33 @@ A recoit de B : (initiate, 2, 3, find) ...
         mcan : D --> None
         mpoids : 4 --> inf
         recu : 0 --> 0
+        -- Procedure TEST --
         testcan : None --> D
         A envoie à D : (test, 2, 3, None) ...
+        -- Fin procedure TEST --
 A recoit de D : (test, 2, 3, None) ...
         canal[D] : basic --> reject
+        -- Procedure TEST --
         testcan : D --> None
+        - Procedure REPORT -
         etat : find --> found
         A envoie à B : (report, inf, None, None) ...
+        - Fin procedure REPORT -
+        -- Fin procedure TEST --
 A recoit de father : (termine, None, None, None) ...
-
-----------------------
-Set final :
-niv : 2
-canal : {'D': 'reject', 'B': 'branch'}
-queues : {'D': <multiprocessing.queues.SimpleQueue object at 0x7f1878295cc0>, 'father': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88f60>, 'C': <multiprocessing.queues.SimpleQueue object at 0x7f1877405ef0>, 'B': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88c50>, 'A': <multiprocessing.queues.SimpleQueue object at 0x7f1876a88dd8>}
+--------
+Set state :
 i : A
-edges : {'D': 4, 'B': 2}
-etat : found
-nom : 3
-f_ : RAPPORT_graphecours2__060620_234002_nodeA.txt
-mpoids : inf
 testcan : None
-mcan : None
+nom : 3
 pere : B
+etat : found
+f_ : RAPPORT_txtGcours2__150620_1522_nodeA.txt
+edges : {'B': 2, 'D': 4}
 recu : 0
+mpoids : inf
+canal : {'B': 'branch', 'D': 'reject'}
+mcan : None
+niv : 2
+--------
+

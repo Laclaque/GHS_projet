@@ -37,6 +37,6 @@ def send_to(q_, sender, receiver, name, val1, val2, val3, f_):
 #	- {"type":_, "val1":_, "val2":_, "val3":_}
 def recv_from(q_, receiver, f_):
 	obj = json.loads(q_.get())
-	txt = register.recv_msg(obj["sender"], receiver, obj["type"], obj["val1"], obj["val2"], obj["val3"], f_)
+	register.recv_msg(obj["sender"], receiver, obj["type"], obj["val1"], obj["val2"], obj["val3"], f_)
 	return obj
 
